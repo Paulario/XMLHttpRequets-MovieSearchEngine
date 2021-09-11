@@ -1,0 +1,68 @@
+@import '../styles/bootstrap/scss/bootstrap.scss';
+
+@mixin flex($d, $jc, $ai) {
+    display: flex;
+    flex-direction: $d;
+    justify-content: $jc;
+    align-items: $ai;
+}
+
+.card {
+    height: 48rem;
+
+    &-movie-poster  {
+        height: 65%;
+        background-color: teal; 
+        background-position: center;
+        background-size: cover;
+    }
+    &-body  {
+        height: 35%;
+    }
+
+    &-movie-title {
+        color: #333;
+        background-color: rgba(0,0,0,0.2);
+        height: 40%;
+        @include flex(row, center, center);
+    }
+    &-movie-type  {
+        height: 20%;
+        @include flex(row, center, center);
+    }
+    &-movie-release-date  {
+        height: 20%;
+        @include flex(row, center, center);
+    }
+    &-movie-details  {
+        height: 20%;
+    }
+}
+
+#movieDetails {
+    .modal-body  {
+        .row  {
+            @include media-breakpoint-between(sm, lg) {
+                overflow-y: auto;
+            }
+            .movie-poster {
+                background-color: teal; 
+                background-position: center;
+                background-size: cover;
+            }
+            .movie-title  {
+                color: #333;
+                height: 100px;
+                background-color: rgba(0,0,0,0.2);
+                @include flex(row, center, center);
+            }
+        }
+    }
+}
+
+#info {
+    @include media-breakpoint-up(lg) {
+        overflow-y: auto;
+    }
+}
+
