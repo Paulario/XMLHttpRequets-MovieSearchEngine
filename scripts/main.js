@@ -43,11 +43,10 @@ const MOVIE = (function(){
 $('#search-btn').addEventListener('click', () => {
     console.log('here');
     if($('#search-string').value) {
-        let movieData = MOVIE
-            .searchByString($('#search-string').value)
-            .then(response => {
-                renderSearchResults(response.Search);
-            });
+        MOVIE.searchByString($('#search-string').value)
+             .then(response => {
+                 renderSearchResults(response.Search);
+             });
 
     }
 });
@@ -72,7 +71,6 @@ function renderSearchResults(searchData) {
 }
 
 function renderMovieDetails(data) {
-    console.log(data);
     let makeListOfRatings = function(ratings){
         let out = '';
         ratings.forEach(rating => {
@@ -80,15 +78,14 @@ function renderMovieDetails(data) {
         });
         return out;
     }
-    console.log(data.Poster);
-    let template = `<div class="container">
+    let template = `<div class="container m-0">
                         <div class="row gx-1 flex-lg-row flex-column flex-nowrap" style="height: 80vh">
                             <div id="picture" class="col-12 col-lg-5 border h-100 p-lg-3 p-2">
                                 <div class="movie-poster h-100" style="background-image: url('${data.Poster}')"></div>
                             </div>
-                            <div id="info" class="col-12 col-lg-7 border p-lg-3 p-2 h-100">
+                            <div id="info" class="col-12 col-lg-7 border p-lg-3 p-2">
                                 <h3 class="movie-title text-center">${data.Title}</h3>
-                                <div class="movie-genre">
+                                <div class="movie-genre my-2 fs-6 text-secondary">
                                     <span class="rated">${data.Rated}</span>
                                     <span class="genre">${data.Genre}</span>
                                 </div>
@@ -117,8 +114,6 @@ function renderMovieDetails(data) {
                                     <span class="fw-bold">Ratings: </span>
                                     <ul class="list-unstyled ms-4">${makeListOfRatings(data.Ratings)}</ul>
                                 </div>
-                                        Lorem facilis dolore delectus quaerat ipsum dignissimos Praesentium qui excepturi ratione enim inventore Deleniti similique nisi vero saepe ab Praesentium sed vel officia quaerat modi Magni error quae rerum in qui in obcaecati Architecto labore ab sunt incidunt ducimus? Maiores sit quod dolores quam error perspiciatis? Rem excepturi recusandae omnis unde quas ipsam fuga Repellat optio provident architecto delectus maiores Nulla incidunt veniam laudantium tenetur aliquam, dolores. Eveniet molestias explicabo at explicabo consequuntur Assumenda pariatur mollitia fugiat voluptatem laborum Autem nihil libero aut iusto explicabo, temporibus Officiis optio molestiae recusandae voluptate veritatis Placeat eos quod consectetur ipsam dolorum. Dicta beatae explicabo magni fugit iure rem. Rerum atque commodi repudiandae rerum quasi illum ipsum. Voluptatibus tenetur minima aperiam veritatis saepe. Quas obcaecati ea magnam vitae quae, maxime exercitationem. Consequatur beatae deleniti velit deserunt repellat Sequi amet exercitationem repellendus dolore amet dolorum Excepturi voluptate explicabo ipsam ex iure. Eligendi corporis enim quae sit ab? Soluta voluptatum sunt repellendus dicta temporibus ratione. Corporis ipsa sapiente incidunt reprehenderit blanditiis Odit id voluptas quam delectus illo amet. Saepe odio adipisci earum quos voluptate. Tempora reiciendis eius nihil natus enim. Veniam illo ipsa id corporis delectus officiis Eos quis necessitatibus consequatur odit doloribus nobis Distinctio facere?
-
                             </div>
                         </div>
                     </div>`;
@@ -127,10 +122,9 @@ function renderMovieDetails(data) {
 
 function showMovieDetails(event) {
     const MODAL = new bootstrap.Modal($('#movieDetails'));
-    console.log(MODAL);
-    MODAL.show();
     MOVIE.searchById(event.target.dataset.imdbid)
         .then(response => {
+        MODAL.show();
             renderMovieDetails(response);
         });
 }
@@ -140,6 +134,3 @@ function $(selector) {
 }
 
 $('#search-btn').dispatchEvent(new MouseEvent('click'));
-setTimeout(() => {
-    $('.card-movie-details').dispatchEvent(new MouseEvent('click'));
-}, 1000);
